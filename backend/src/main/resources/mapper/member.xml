@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.happyhouse.model.mapper.MemberMapper">
+
+	<select id="login" parameterType="memberDto" resultType="memberDto">
+		select name, username, email
+		from user
+		where username = #{username} and password = #{password}
+	</select>
+	
+	<select id="userInfo" parameterType="String" resultType="memberDto">
+		select username, name, email, phone, address, address_detail
+		from user
+		where username = #{username}
+	</select>
+	
+	<select id="findMember" parameterType="String" resultType="int">
+		select count(username)
+		from user
+		where username=#{username}
+	</select>
+	
+	<insert id="register" parameterType="memberDto">
+		insert into user(username, password, name, email, phone, address, address_detail)
+		values(#{username},#{password},#{name},#{email},#{phone},#{address},#{address_detail})
+	</insert>
+	
+	<update id="modifyMember" parameterType="MemberDto">
+		update user
+		set password = #{password}, name = #{name}, email = #{email}, phone = #{phone}, address = #{address}, address_detail = #{address_detail}
+		where username = #{username}
+	</update>
+	
+	<delete id="deleteMember" parameterType="String">
+		delete from user
+		where username = #{username}
+	</delete>
+	
+	
+</mapper>
